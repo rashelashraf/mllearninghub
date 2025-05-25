@@ -47,6 +47,128 @@ function initializeNavigation() {
     });
 }
 
+
+        // Interactive demonstrations
+        function showDetails(method) {
+            const details = {
+                'onehot': 'One-Hot Encoding creates binary columns for each category. Perfect for nominal data with no inherent order.',
+                'label': 'Label Encoding assigns integers (0, 1, 2...) to categories. Best for ordinal data with natural ordering.',
+                'ordinal': 'Ordinal Encoding maps categories to ordered integers based on specified order (e.g., low=1, medium=2, high=3).',
+                'binary': 'Binary Encoding converts categories to binary representation, reducing dimensionality compared to one-hot.',
+                'target': 'Target Encoding replaces categories with target variable statistics (mean, median). Risk of overfitting.',
+                'frequency': 'Frequency Encoding replaces categories with their frequency counts in the dataset.',
+                'normalize': 'Min-Max Normalization scales features to [0,1] range: (x - min) / (max - min)',
+                'standardize': 'Standardization centers data: (x - mean) / std. Results in mean=0, std=1.',
+                'robust': 'Robust Scaling uses median and IQR: (x - median) / IQR. Less sensitive to outliers.',
+                'quantile': 'Quantile Transformation maps to uniform or normal distribution using cumulative distribution function.',
+                'binning': 'Binning converts continuous variables into discrete bins (e.g., age groups).',
+                'log': 'Log Transformation: log(x). Reduces right skewness and handles exponential relationships.',
+                'embedding': 'Embedding Layers learn dense vector representations for categorical variables in neural networks.',
+                'hashing': 'Feature Hashing uses hash function to map categories to fixed-size feature space.',
+                'catboost': 'CatBoost handles categorical features natively without preprocessing.',
+                'polynomial': 'Polynomial Features create interaction terms and powers of existing features.'
+            };
+            
+            alert(details[method] || 'Method details not available.');
+        }
+
+        function showEncoding(type) {
+            const info = {
+                'categorical': 'Categorical data represents discrete categories or groups (colors, cities, product types).',
+                'ordinal': 'Ordinal data has categories with meaningful order (ratings: poor < good < excellent).',
+                'nominal': 'Nominal data has categories without order (colors: red, blue, green).'
+            };
+            
+            alert(info[type] || 'Information not available.');
+        }
+
+        function launchDemo(type) {
+            const demos = {
+                'categorical': 'Categorical Encoding Demo: Interactive comparison of one-hot, label, and target encoding',
+                'numerical': 'Numerical Scaling Demo: Visualize effects of different scaling methods on distributions',
+                'advanced': 'Advanced Techniques Demo: Explore embedding layers and feature hashing',
+                'comparison': 'Method Comparison: Side-by-side performance comparison on real datasets'
+            };
+            
+            alert(demos[type] || 'Demo not available.');
+        }
+
+        // Animation and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.method-card, .technique-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Interactive technique cards
+            document.querySelectorAll('.technique-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05) rotateY(5deg)';
+                    this.style.borderColor = '#FFD700';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotateY(0deg)';
+                    this.style.borderColor = 'transparent';
+                });
+            });
+
+            // Tree node interactions
+            document.querySelectorAll('.tree-node').forEach(node => {
+                node.addEventListener('click', function() {
+                    // Reset all nodes
+                    document.querySelectorAll('.tree-node').forEach(n => {
+                        n.style.background = 'white';
+                        n.style.color = 'black';
+                    });
+                    
+                    // Highlight clicked node
+                    this.style.background = '#667eea';
+                    this.style.color = 'white';
+                });
+            });
+        });
+
+ 
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+  
+
+
 // Initialize interactive elements
 function initializeInteractiveElements() {
     // Feature cards navigation
